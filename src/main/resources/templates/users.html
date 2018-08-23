@@ -19,6 +19,13 @@
             <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.password}"></td>
+            <td>
+                <button type="submit" name="update" th:value="@{/users/edit/(id=${user.id})}">Update</button>
+
+            </td>
+            <td>
+                <a th:href="@{/users/delete/(id=${user.id})}" class="w3-text-red">Delete</a>
+            </td>
         </tr>
     </th:block>
 </table>
