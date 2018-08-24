@@ -28,6 +28,7 @@ public class TableController {
     public String  listUsers(Model model) {
         List<User> list = userService.getAllUsers();
         model.addAttribute("users", list);
+
         return "users";
     }
 
@@ -35,18 +36,19 @@ public class TableController {
     public String createUser(Model model) {
         model.addAttribute("string", "Create");
         model.addAttribute("suffix", "new user");
+        model.addAttribute("user", new User());
         return "create";
     }
 
     @RequestMapping(value = "create", produces = "text/plain;charset=UTF-8", method = RequestMethod.POST)
     public String addUserToBase(@RequestParam("name") String name, @RequestParam("password") String password) {
         userService.add(new User(convertToUTF8(name), password));
-        return "admin";
+        return "redirect:/admin";
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.GET)
-    public String updateUser(@RequestParam("update") String id, Model model) {
-        User user = userService.getById(Integer.parseInt(id));
+    @RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+    public String updateUser(@RequestParam("update") Long id, Model model) {
+        User user = userService.getById(id);
         model.addAttribute("string", "Update");
         model.addAttribute("suffix", "user");
         model.addAttribute("user", user);

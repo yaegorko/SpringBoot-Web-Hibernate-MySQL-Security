@@ -21,7 +21,7 @@ public class UserHibernateEntityManagerDAO implements UserDAO {
     }
 
     @Override
-    public User getUserUserById(int id) {
+    public User getUserUserById(long id) {
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.id = ?1");
         query.setParameter(1, id);
         User user = (User)query.getSingleResult();
@@ -47,7 +47,7 @@ public class UserHibernateEntityManagerDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUserById(int id) {
+    public void deleteUserById(long id) {
         entityManager.remove(getUserUserById(id));
     }
 }

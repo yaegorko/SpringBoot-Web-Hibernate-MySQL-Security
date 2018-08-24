@@ -6,28 +6,40 @@
     <title>Title</title>
 </head>
 <body>
-<table >
-        <tr>
-            <th>Id</th>
-            <th>Login</th>
-            <th>Password</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Login</th>
+        <th>Password</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
     <th:block th:each="user : ${users}">
         <tr>
             <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.password}"></td>
             <td>
-                <button type="submit" name="update" th:value="@{/users/edit/(id=${user.id})}">Update</button>
-
+                <form method="GET" action="admin/updateUser">
+                    <button type="submit" name="update" th:value="${user.id}">Update</button>
+                </form>
             </td>
             <td>
-                <a th:href="@{/users/delete/(id=${user.id})}" class="w3-text-red">Delete</a>
+                <form method="post" action="admin/delete">
+                    <button type="submit" name="delete" th:value="${user.id}">Delete</button>
+                </form>
             </td>
         </tr>
     </th:block>
+</table>
+<table>
+    <form method="post" action="admin/createNew">
+        <tr>
+            <td>
+                <button type="submit" name="create">Add new user</button>
+            </td>
+        </tr>
+    </form>
 </table>
 </body>
 </html>
